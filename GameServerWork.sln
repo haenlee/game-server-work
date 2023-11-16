@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameServer", "GameServer\Ga
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "ServerCommon\Common.csproj", "{8C4B2932-23BD-471C-86E4-22FC3E9C7ECF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocketServer", "SocketServer\SocketServer.csproj", "{55850EDE-122E-4D44-9465-047CFD8079E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Network", "SocketServer\Network.csproj", "{55850EDE-122E-4D44-9465-047CFD8079E7}"
 	ProjectSection(ProjectDependencies) = postProject
 		{8C4B2932-23BD-471C-86E4-22FC3E9C7ECF} = {8C4B2932-23BD-471C-86E4-22FC3E9C7ECF}
 	EndProjectSection

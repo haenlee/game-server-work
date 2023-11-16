@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ServerCommon\Common.csproj" />
-    <ProjectReference Include="..\SocketServer\SocketServer.csproj" />
+    <ProjectReference Include="..\SocketServer\Network.csproj" />
   </ItemGroup>
 
 </Project>

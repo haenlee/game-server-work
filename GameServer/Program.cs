@@ -1,19 +1,11 @@
-﻿using SockerServer;
-
-namespace GameServer
+﻿namespace GameServer
 {
     public class Program
     {
-        static Listener _listener = new Listener();
-
         static void Main(string[] args)
         {
-            _listener.Run();
-
-            while (true)
-            { 
-            
-            }
+            GameServer gameServer = new GameServer();
+            gameServer.Start();
         }
     }
 }
