@@ -25,10 +25,17 @@ namespace Network
 
         private void OnSocketConnected(object? sender, Socket socket)
         {
-            // TODO: 소켓 연결 완료 후 세션 생성
+            // TODO: 세션 매니저에서 관리
+            NetSession session = new NetSession(socket);
+            session.OnSocketDisconnected += OnSocketDisconnected;
 
             IPEndPoint? clientIP = socket.RemoteEndPoint as IPEndPoint;
             Console.WriteLine("Client[{0}]] Connected", clientIP);
+        }
+
+        private void OnSocketDisconnected(object? sender, NetSession e)
+        {
+            // TODO: 세션 매니저에서 제거
         }
     }
 }

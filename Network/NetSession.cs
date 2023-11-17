@@ -5,31 +5,70 @@ namespace Network
 {
     public class NetSession
     {
+        public Guid Id { get; init; }
+        public event EventHandler<NetSession>? OnSocketDisconnected;
+
         private readonly Socket _socket;
+        private readonly SocketAsyncEventArgs _sendArgs;
         private readonly SocketAsyncEventArgs _recvArgs;
 
+        private object _lock = new object();
+
         public NetSession(Socket socket)
-        { 
+        {
+            Id = Guid.NewGuid();
+
             _socket = socket;
 
+            _sendArgs = new SocketAsyncEventArgs();
+            _sendArgs.Completed += OnSendCompleted;
+
             _recvArgs = new SocketAsyncEventArgs();
-            _recvArgs.Completed += new EventHandler<SocketAsyncEventArgs>(ReceivedCompleted);
+            _recvArgs.Completed += OnReceiveCompleted;
             _recvArgs.AcceptSocket = socket;
-            _recvArgs.Completed += ReceivedCompleted;
             _recvArgs.SetBuffer(new byte[Config.BUFFER_SIZE], 0, Config.BUFFER_SIZE);
 
-            BeginReceive(_recvArgs);
+            BeginReceive();
         }
 
-        private void BeginReceive(SocketAsyncEventArgs args)
+        #region Send
+        public void BeginSend(byte[] data)
         {
-            if (_socket.Connected)
+            lock (_lock)
             {
-                args?.AcceptSocket?.ReceiveAsync(args);
+                if (_socket.Connected)
+                {
+                    _sendArgs.SetBuffer(data);
+                    _socket.SendAsync(_sendArgs);
+                }
             }
         }
 
-        private void ReceivedCompleted(Object? sender, SocketAsyncEventArgs args)
+        private void OnSendCompleted(Object? sender, SocketAsyncEventArgs args)
+        {
+            if (args.BytesTransferred == 0 || args.SocketError != SocketError.Success)
+            {
+                Disconnect();
+                return;
+            }
+
+            Console.WriteLine($"OnSendCompleted: {args.BytesTransferred}");
+        }
+        #endregion
+
+        #region Receive
+        private void BeginReceive()
+        {
+            lock (_lock)
+            {
+                if (_socket.Connected)
+                {
+                    _recvArgs.AcceptSocket?.ReceiveAsync(_recvArgs);
+                }
+            }
+        }
+
+        private void OnReceiveCompleted(Object? sender, SocketAsyncEventArgs args)
         {
             if (args.BytesTransferred == 0 || args.SocketError != SocketError.Success)
             {
@@ -45,7 +84,7 @@ namespace Network
                 ReceiveData(data, 0, data.Length);
             }
 
-            BeginReceive(args);
+            BeginReceive();
         }
 
         private void ReceiveData(byte[] data, int offset, int count)
@@ -86,13 +125,20 @@ namespace Network
                 stream.SetLength(size);
             }
         }
+        #endregion
 
+        #region Disconnect
         public void Disconnect()
         {
-            _socket.Shutdown(SocketShutdown.Both);
-            _socket.Close();
+            lock (_lock)
+            {
+                _socket.Shutdown(SocketShutdown.Both);
+                _socket.Close();
 
-            _recvArgs.Completed -= ReceivedCompleted;
+                _sendArgs.Completed -= OnSendCompleted;
+                _recvArgs.Completed -= OnReceiveCompleted;
+            }
         }
+        #endregion
     }
 }

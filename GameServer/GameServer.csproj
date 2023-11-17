@@ -8,8 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Network\Network.csproj" />
     <ProjectReference Include="..\ServerCommon\Common.csproj" />
-    <ProjectReference Include="..\SocketServer\Network.csproj" />
   </ItemGroup>
 
 </Project>

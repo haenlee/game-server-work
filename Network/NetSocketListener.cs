@@ -4,11 +4,10 @@ using System.Net.Sockets;
 
 namespace Network
 {
-    public class NetSocketListener : IDisposable
+    public class NetSocketListener
     {
         private readonly IPEndPoint _endPoint;
         private readonly Socket _serverSocket;
-        private readonly SocketAsyncEventArgs _args;
 
         public event EventHandler<Socket>? SocketConnected;
 
@@ -16,13 +15,6 @@ namespace Network
         {
             _endPoint = endPoint;
             _serverSocket = new Socket(endPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-            _args = new SocketAsyncEventArgs();
-            _args.Completed += OnSocketAccepted;
-        }
-
-        public void Dispose()
-        {
-            throw new NotImplementedException();
         }
 
         public void Start()
@@ -30,7 +22,10 @@ namespace Network
             // 소켓 연결
             _serverSocket.Bind(_endPoint);
             _serverSocket.Listen(Config.MAX_BACK_LOG);
-            BeginAccept(_args);
+
+            SocketAsyncEventArgs args = new SocketAsyncEventArgs();
+            args.Completed += OnSocketAccepted;
+            BeginAccept(args);
         }
 
         public void Stop()

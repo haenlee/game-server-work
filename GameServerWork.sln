@@ -5,16 +5,13 @@ VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameServer", "GameServer\GameServer.csproj", "{AAD164D6-5741-4D9F-87DA-AD69861EE14C}"
 	ProjectSection(ProjectDependencies) = postProject
-		{55850EDE-122E-4D44-9465-047CFD8079E7} = {55850EDE-122E-4D44-9465-047CFD8079E7}
+		{82D7E76D-CCDC-4952-85DC-3E19B8B1C00A} = {82D7E76D-CCDC-4952-85DC-3E19B8B1C00A}
 		{8C4B2932-23BD-471C-86E4-22FC3E9C7ECF} = {8C4B2932-23BD-471C-86E4-22FC3E9C7ECF}
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "ServerCommon\Common.csproj", "{8C4B2932-23BD-471C-86E4-22FC3E9C7ECF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Network", "SocketServer\Network.csproj", "{55850EDE-122E-4D44-9465-047CFD8079E7}"
-	ProjectSection(ProjectDependencies) = postProject
-		{8C4B2932-23BD-471C-86E4-22FC3E9C7ECF} = {8C4B2932-23BD-471C-86E4-22FC3E9C7ECF}
-	EndProjectSection
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Network", "Network\Network.csproj", "{82D7E76D-CCDC-4952-85DC-3E19B8B1C00A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,10 +27,10 @@ Global
 		{8C4B2932-23BD-471C-86E4-22FC3E9C7ECF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C4B2932-23BD-471C-86E4-22FC3E9C7ECF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C4B2932-23BD-471C-86E4-22FC3E9C7ECF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{55850EDE-122E-4D44-9465-047CFD8079E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{55850EDE-122E-4D44-9465-047CFD8079E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{55850EDE-122E-4D44-9465-047CFD8079E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{55850EDE-122E-4D44-9465-047CFD8079E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82D7E76D-CCDC-4952-85DC-3E19B8B1C00A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82D7E76D-CCDC-4952-85DC-3E19B8B1C00A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82D7E76D-CCDC-4952-85DC-3E19B8B1C00A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82D7E76D-CCDC-4952-85DC-3E19B8B1C00A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
