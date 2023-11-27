@@ -3,30 +3,53 @@ package Protocol;
 
 import "google/protobuf/timestamp.proto";
 
-option csharp_namespace = "Google.Protobuf.Protocol";
+option csharp_namespace = "Protocol";
 
-message Person {
-  string name = 1;
-  int32 id = 2;  // Unique ID number for this person.
-  string email = 3;
-
-  enum PhoneType {
-    MOBILE = 0;
-    HOME = 1;
-    WORK = 2;
-  }
-
-  message PhoneNumber {
-    string number = 1;
-    PhoneType type = 2;
-  }
-
-  repeated PhoneNumber phones = 4;
-
-  google.protobuf.Timestamp last_updated = 5;
+enum GameErrorCode
+{
+	GameErrorCode_Success = 0;
+	GameErrorCode_Wait = 100;
+	GameErrorCode_Error = 102;
+	GameErrorCode_AlreadySetWait = 103;
+	GameErrorCode_DuplicateLogoutFailed = 104;
 }
 
-// Our address book file is just one of these.
-message AddressBook {
-  repeated Person people = 1;
+message PositionData
+{
+	float x = 1;
+	float y = 2;
+	float z = 3;
+}
+
+message GameReq
+{
+	message MoveReq
+	{
+		PositionData position = 1;
+		float rotation = 2;
+	}
+
+	oneof msg {
+		MoveReq moveReq = 1;
+	}
+}
+
+message GameRes
+{
+	message MoveRes
+	{
+	}
+
+	GameErrorCode errorCode = 1;
+	oneof msg {
+		MoveRes moveRes = 2;
+	}
+}
+
+message GameProto
+{
+	oneof msg {
+		GameReq gameReq = 1;
+		GameRes gameRes = 2;
+	}
 }

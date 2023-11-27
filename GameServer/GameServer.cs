@@ -6,9 +6,9 @@ namespace GameServer
 {
     class GameServer
     {
-        Thread? _thread;
-        NetService? _netService; 
-        bool _isRun = false;
+        private Thread? _thread;
+        private NetService? _netService; 
+        private bool _isRun = false;
 
         public void Init()
         {

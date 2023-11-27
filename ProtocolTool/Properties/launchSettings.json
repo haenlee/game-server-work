@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ProtocolTool": {
+      "commandName": "Project",
+      "workingDirectory": "./"
+    }
+  }
+}

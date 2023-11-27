@@ -9,7 +9,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Network\Network.csproj" />
-    <ProjectReference Include="..\ServerCommon\Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>
