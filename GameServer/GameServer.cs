@@ -20,6 +20,8 @@ namespace GameServer
             IPAddress ipAddr = ipHost.AddressList[0];
             IPEndPoint endPoint = new IPEndPoint(ipAddr, Config.PORT);
             _netService.Init(endPoint);
+
+            Console.WriteLine("GameServer Init.");
         }
 
         public void Start()
@@ -28,6 +30,7 @@ namespace GameServer
             _thread?.Start();
             _isRun = true;
 
+            Console.WriteLine("GameServer Start.");
         }
 
         public void Stop()

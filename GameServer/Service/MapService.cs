@@ -7,7 +7,8 @@ namespace GameServer.Service
     {
         public void OnMove(NetConnection connection, Protocol.GameReq.Types.MoveReq recvData)
         {
-            //connection.BeginSend();
+            var proto = ProtoHelper.MoveRes(Protocol.GameErrorCode.Success);
+            connection.BeginSend(proto);
         }
     }
 }

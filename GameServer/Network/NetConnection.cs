@@ -1,10 +1,11 @@
 ﻿using Common;
 using GameServer;
+using Google.Protobuf;
 using System.Net.Sockets;
 
 namespace Network
 {
-    public abstract class NetConnection
+    public class NetConnection
     {
         public NetSession Session;
         public event EventHandler<NetSession> OnSocketDisconnected;
@@ -35,6 +36,11 @@ namespace Network
         }
 
         #region Send
+        public void BeginSend(Protocol.GameProto proto)
+        {
+            BeginSend(proto.ToByteArray());
+        }
+
         public void BeginSend(byte[] data)
         {
             lock (_lock)
