@@ -1,9 +1,10 @@
-﻿using System.Net;
+﻿using Network;
+using System.Net;
 using System.Net.Sockets;
 
-namespace Network
+namespace GameServer
 {
-    public class NetService
+    public class GameService
     {
         static NetSocketListener? _listener;
 
@@ -27,7 +28,7 @@ namespace Network
         {
             // TODO: 세션 매니저에서 관리
             NetSession session = new NetSession();
-            NetConnection connection = new NetConnection(socket, session, OnSocketDisconnected);
+            NetConnection connection = new NetConnection(socket, session, OnSocketDisconnected, ProtoHandler.HandlePacketReq);
 
             IPEndPoint? clientIP = socket.RemoteEndPoint as IPEndPoint;
             Console.WriteLine("Client[{0}]] Connected", clientIP);

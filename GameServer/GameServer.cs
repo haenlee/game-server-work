@@ -1,5 +1,4 @@
 ﻿using Common;
-using Network;
 using System.Net;
 
 namespace GameServer
@@ -7,26 +6,26 @@ namespace GameServer
     class GameServer
     {
         private Thread? _thread;
-        private NetService? _netService; 
+        private GameService? _gameService; 
         private bool _isRun = false;
 
         public void Init()
         {
             _thread = new Thread(new ThreadStart(Update));
-            _netService = new NetService();
+            _gameService = new GameService();
 
             string host = Dns.GetHostName();
             IPHostEntry ipHost = Dns.GetHostEntry(host);
             IPAddress ipAddr = ipHost.AddressList[0];
             IPEndPoint endPoint = new IPEndPoint(ipAddr, Config.PORT);
-            _netService.Init(endPoint);
+            _gameService.Init(endPoint);
 
             Console.WriteLine("GameServer Init.");
         }
 
         public void Start()
         {
-            _netService?.Start();
+            _gameService?.Start();
             _thread?.Start();
             _isRun = true;
 
@@ -37,7 +36,7 @@ namespace GameServer
         {
             _isRun = false;
             _thread?.Join();
-            _netService?.Stop();
+            _gameService?.Stop();
         }
 
         public void Update()

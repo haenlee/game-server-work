@@ -1,5 +1,6 @@
 ﻿using Common;
 using Network;
+using Network.Proto;
 
 namespace GameServer.Service
 {

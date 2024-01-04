@@ -1,8 +1,12 @@
-﻿using System.Net.Sockets;
-
-namespace Network
+﻿namespace Network
 {
-    public class NetSession
+    // 캐릭터 정보 및 유저 정보
+    public interface INetSession
+    { 
+        
+    }
+
+    public class NetSession : INetSession
     {
         public Guid UserId { get; init; }
         public string UserName { get; set; } = string.Empty;

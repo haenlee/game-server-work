@@ -18,7 +18,7 @@ namespace ProtocolTool
 
     public class Program
     {
-        static string _outputDir = "../GameServer/Proto";
+        static readonly string _outputDir = "../GameServer/Proto";
 
         static ProtoConfig GameProto()
         {

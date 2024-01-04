@@ -1,25 +1,29 @@
 ﻿using Common;
-using GameServer;
 using Google.Protobuf;
+using Protocol;
 using System.Net.Sockets;
 
 namespace Network
 {
     public class NetConnection
     {
-        public NetSession Session;
-        public event EventHandler<NetSession> OnSocketDisconnected;
+        public INetSession Session;
+
+        private event EventHandler<NetSession> _onSocketDisconnected;
+        private Action<NetConnection, GameProto> _onHandleProto;
 
         private readonly Socket _socket;
         private readonly SocketAsyncEventArgs _sendArgs;
         private readonly SocketAsyncEventArgs _recvArgs;
 
-        private object _lock = new();
+        private readonly object _lock = new();
 
-        public NetConnection(Socket socket, NetSession session, EventHandler<NetSession> onSocketDisconnected)
+        public NetConnection(Socket socket, INetSession session, EventHandler<NetSession> onSocketDisconnected, Action<NetConnection, GameProto> onHandleProto)
         {
             Session = session;
-            OnSocketDisconnected += onSocketDisconnected;
+
+            _onSocketDisconnected += onSocketDisconnected;
+            _onHandleProto += onHandleProto;
 
             _socket = socket;
 
@@ -31,12 +35,11 @@ namespace Network
             _recvArgs.AcceptSocket = socket;
             _recvArgs.SetBuffer(new byte[Config.BUFFER_SIZE], 0, Config.BUFFER_SIZE);
 
-
             BeginReceive();
         }
 
         #region Send
-        public void BeginSend(Protocol.GameProto proto)
+        public void BeginSend(GameProto proto)
         {
             BeginSend(proto.ToByteArray());
         }
@@ -53,7 +56,7 @@ namespace Network
             }
         }
 
-        private void OnSendCompleted(Object? sender, SocketAsyncEventArgs args)
+        private void OnSendCompleted(object? sender, SocketAsyncEventArgs args)
         {
             if (args.BytesTransferred == 0 || args.SocketError != SocketError.Success)
             {
@@ -77,7 +80,7 @@ namespace Network
             }
         }
 
-        private void OnReceiveCompleted(Object? sender, SocketAsyncEventArgs args)
+        private void OnReceiveCompleted(object? sender, SocketAsyncEventArgs args)
         {
             if (args.BytesTransferred == 0 || args.SocketError != SocketError.Success)
             {
@@ -120,8 +123,9 @@ namespace Network
                     break;
 
                 // 패킷 메시지 파싱
-                Protocol.GameProto proto = Protocol.GameProto.Parser.ParseFrom(data, readOffset, dataSize);
-                ProtoHandler.HandlePacketReq(this, proto);
+                GameProto proto = GameProto.Parser.ParseFrom(data, readOffset, dataSize);
+                _onHandleProto?.Invoke(this, proto);
+
 
                 readOffset += (dataSize + Config.HEADER_SIZE);
 

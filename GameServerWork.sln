@@ -6,6 +6,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameServer", "GameServer\GameServer.csproj", "{AAD164D6-5741-4D9F-87DA-AD69861EE14C}"
 	ProjectSection(ProjectDependencies) = postProject
 		{13ECBB27-DCD5-4118-A9A9-58E34FDEA9D3} = {13ECBB27-DCD5-4118-A9A9-58E34FDEA9D3}
+		{6F1BB050-0846-4FE6-8D53-90BC144216A9} = {6F1BB050-0846-4FE6-8D53-90BC144216A9}
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tool", "Tool", "{FBDA368B-9B5F-446F-859F-363BFBD5971B}"
@@ -16,6 +17,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProtocolTool", "ProtocolToo
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{13ECBB27-DCD5-4118-A9A9-58E34FDEA9D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotClient", "BotClient\BotClient.csproj", "{22813DBF-7A76-4390-AA89-CAA482606875}"
+	ProjectSection(ProjectDependencies) = postProject
+		{13ECBB27-DCD5-4118-A9A9-58E34FDEA9D3} = {13ECBB27-DCD5-4118-A9A9-58E34FDEA9D3}
+		{6F1BB050-0846-4FE6-8D53-90BC144216A9} = {6F1BB050-0846-4FE6-8D53-90BC144216A9}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Network", "Network\Network.csproj", "{6F1BB050-0846-4FE6-8D53-90BC144216A9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{13ECBB27-DCD5-4118-A9A9-58E34FDEA9D3} = {13ECBB27-DCD5-4118-A9A9-58E34FDEA9D3}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +47,14 @@ Global
 		{13ECBB27-DCD5-4118-A9A9-58E34FDEA9D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13ECBB27-DCD5-4118-A9A9-58E34FDEA9D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13ECBB27-DCD5-4118-A9A9-58E34FDEA9D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22813DBF-7A76-4390-AA89-CAA482606875}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22813DBF-7A76-4390-AA89-CAA482606875}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22813DBF-7A76-4390-AA89-CAA482606875}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22813DBF-7A76-4390-AA89-CAA482606875}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F1BB050-0846-4FE6-8D53-90BC144216A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F1BB050-0846-4FE6-8D53-90BC144216A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F1BB050-0846-4FE6-8D53-90BC144216A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F1BB050-0846-4FE6-8D53-90BC144216A9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
